@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Customer Order Table</title>
+</head>
+<body>
+    <div id="table">
+
+    </div>
+    <script src="./js/soln.js"></script>
+    <script>
+        var container = document.getElementById('table');
+        var customersDS = buildDS(customers, orders, inventory);
+        console.log(customersDS);
+        customersDS.forEach(function(customerObj){
+            var customerDiv = document.createElement('div');
+            customerDiv.classList.add("customer-div");
+            var customerDivContent = `
+            <h2>${customerObj.first_name} ${customerObj.last_name}</h2>`;
+            customerObj.orders.forEach(function(orderObj){
+                customerDivContent += `
+                <div class='order-title'>Order Number ${customerObj.order_id}</div>`;
+                orderObj.items.forEach(function(item){
+                    customerDivContent += `
+                    <span class='item-name'>${item.name}</span>
+                    <span class='item-price'>${item.price}</span>`;
+                });
+            });
+            customerDiv.innerHTML = customerDivContent;
+            container.appendChild(customerDiv);
+        });
+    </script>
+</body>
+</html>
